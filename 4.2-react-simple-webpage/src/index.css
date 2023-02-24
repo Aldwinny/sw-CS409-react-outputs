@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Silkscreen&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+}
+
+nav {
+  @apply bg-blackTransparent;
+}
+
+nav li {
+  @apply text-xl font-bold ml-6 font-display text-mauve duration-150 rounded-lg;
+}
+
+nav li:not(.logo) {
+  @apply hover:text-salmon-normal hover:-translate-y-0.5 active:text-salmon-dark;
+}
+
+.logo {
+  @apply text-2xl tracking-tighter text-salmon-normal font-silkscreen active:bg-salmon-normal;
+}
