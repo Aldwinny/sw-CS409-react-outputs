@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
@@ -11,22 +11,35 @@ const Navbar = () => {
           <li className="logo mr-auto ml-2">
             <Link to="/">Pixel Legion。</Link>
           </li>
-          <li>
-            {location.pathname === "/about" || (
-              <Link to="/about">About us</Link>
-            )}
-          </li>
-          <li>
-            {location.pathname === "/services" || (
+          {location.pathname === "/" ? (
+            <></>
+          ) : (
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+          )}
+          {location.pathname === "/about" ? (
+            <></>
+          ) : (
+            <li>
+              <Link to="/about">About Us</Link>
+            </li>
+          )}
+          {location.pathname === "/services" ? (
+            <></>
+          ) : (
+            <li>
               <Link to="/services">Our Portfolio</Link>
-            )}
-          </li>
-          <li>
-            {location.pathname === "/u/login" ||
-              location.pathname === "/u/register" || (
-                <Link to="/u/login">Login</Link>
-              )}
-          </li>
+            </li>
+          )}
+          {location.pathname === "/u/login" ||
+          location.pathname === "/u/register" ? (
+            <></>
+          ) : (
+            <li>
+              <Link to="/u/login">Login / Register</Link>
+            </li>
+          )}
         </ul>
       </nav>
     </header>

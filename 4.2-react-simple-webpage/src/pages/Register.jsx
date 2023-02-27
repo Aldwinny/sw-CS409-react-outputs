@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 export const RegisterPage = () => {
   const [firstName, setFirstName] = useState("");
@@ -373,7 +374,7 @@ export const RegisterPage = () => {
             <input
               type="submit"
               value="Register"
-              className="text-lg text-mauve border border-solid px-9 py-0.5 mr-5 mt-5 border-mauve bg-none rounded-md duration-150 hover:bg-mauve hover:text-black active:bg-white active:text-black"
+              className="text-lg text-mauve border border-solid px-9 py-0.5 mr-5 mt-5 phone:mb-0 mb-3 border-mauve bg-none rounded-md duration-150 hover:bg-mauve hover:text-black active:bg-white active:text-black"
             />
             <button
               type="button"
@@ -382,6 +383,13 @@ export const RegisterPage = () => {
             >
               Clear
             </button>
+
+            <p>
+              Do you want to login?{" "}
+              <Link to="/u/login" className="text-mauve">
+                Click here!
+              </Link>
+            </p>
             <p className="text-red-500 mt-2">
               {showError
                 ? "*Please check the form first for errors & missing values before submitting.."

@@ -134,7 +134,7 @@ export const LoginPage = () => {
             <input
               type="submit"
               value="Login"
-              className="text-lg text-mauve border border-solid px-9 py-0.5 mr-5 mt-5 border-mauve bg-none rounded-md duration-150 hover:bg-mauve hover:text-black active:bg-white active:text-black"
+              className="text-lg text-mauve border border-solid px-9 py-0.5 mr-5 mt-5 phone:mb-0 mb-3 border-mauve bg-none rounded-md duration-150 hover:bg-mauve hover:text-black active:bg-white active:text-black"
             />
             <button
               type="button"
@@ -143,6 +143,13 @@ export const LoginPage = () => {
             >
               Clear
             </button>
+
+            <p>
+              Do you want to register?{" "}
+              <Link to="/u/register" className="text-mauve">
+                Click here!
+              </Link>
+            </p>
             <p className="text-red-500 mt-2">
               {showError
                 ? "*Please check the form first for errors & missing values before submitting.."

@@ -20,15 +20,15 @@ nav {
 }
 
 nav li {
-  @apply text-xl font-bold ml-6 font-display text-mauve duration-150 rounded-lg;
+  @apply tablet:text-xl text-xs font-bold font-display text-mauve duration-150 rounded-lg;
 }
 
 nav li:not(.logo) {
-  @apply hover:text-salmon hover:-translate-y-0.5 active:text-salmon-dark;
+  @apply hover:text-salmon hover:-translate-y-0.5 active:text-salmon-dark mx-3;
 }
 
 .logo {
-  @apply text-2xl tracking-tighter text-salmon font-silkscreen active:bg-salmon active:text-black;
+  @apply tablet:text-2xl text-xs tracking-tighter text-salmon font-silkscreen active:bg-salmon active:text-black;
 }
 
 .header-text {

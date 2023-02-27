@@ -27,10 +27,10 @@ const HomePage = () => {
   return (
     <>
       <div className="pc:p-20 my-24 header-height">
-        <h1 className="pc:p-5 text-5xl font-silkscreen font-bold tracking-tighter text-red-500 mb-10 shadow-glitch">
+        <h1 className="pc:p-5 p-4 tablet:text-5xl text-2xl font-silkscreen font-bold tracking-tighter text-red-500 pc:mb-10 shadow-glitch">
           Pixel Legion Rocks! Welcome!
         </h1>
-        <h2 className="pc:p-5 text-2xl font-display text-mauve mr-64 shadow-normal">
+        <h2 className="pc:p-5 p-4 tablet:text-2xl text-lg font-display text-mauve pc:mr-64 mr-10 shadow-normal">
           We are a group of artists that work together in making commissions. We
           offer various styles from characters to landscaping, and we also make
           pixelized assets for your games!
