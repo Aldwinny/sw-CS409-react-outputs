@@ -1,160 +1,178 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 export const LoginPage = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [showError, setShowError] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
+  const formRef = useRef(null);
+
+  const [requirementControllerSet, updateRequirementControllerSet] = useState([
+    false,
+    false,
+  ]);
+
   useEffect(() => {
     document.title = "Pixel Legion | Login";
-  }, []);
 
-  // TODO: Cleanup and Migrate the LoginPage
-  const lazyImplement = (str) => {
-    console.log(`Pls implement ${str}`);
+    validateForm();
+  }, [username, password]);
+
+  // Regex Validator for password
+  const validPasswordRegex = RegExp(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+  );
+
+  // Regex Validator for username
+  const validUsernameRegex = RegExp(/^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{3,20}$/);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    validateForm();
+    if (requirementControllerSet.every((value) => value)) {
+      setFormSubmitted(true);
+      // formRef.current.submit(); Mayhaps, a future use be for this poor submit function.
+    } else {
+      setShowError(true);
+    }
+  };
+
+  const validateForm = () => {
+    const newReqController = [...requirementControllerSet];
+
+    if (!validUsernameRegex.test(username.trim())) {
+      console.log("Username error");
+      newReqController[0] = false;
+    } else {
+      console.log("Username is valid");
+      newReqController[0] = true;
+    }
+
+    // Passwords
+    if (!validPasswordRegex.test(password)) {
+      console.log("Passwords error");
+      newReqController[1] = false;
+    } else {
+      console.log("Passwords are valid");
+      newReqController[1] = true;
+    }
+    console.log("_______________");
+
+    let checker = newReqController.every((value) => value);
+    if (checker) {
+      setShowError(false);
+    }
+    updateRequirementControllerSet(newReqController);
+  };
+
+  const resetValues = () => {
+    setUsername("");
+    setPassword("");
   };
 
   return (
-    <>
-      <h1>
-        Register to <span className="text-salmon">Pixel Legion</span>
-      </h1>
-      <p>Let's build magnificent Pixel Art together!</p>
-      <form
-        name="myForm"
-        id="form"
-        className="card head"
-        onSubmit={() => lazyImplement("validate")}
+    <div className="flex justify-center items-center">
+      <div
+        className={`bg-blackTransparent text-gray-300 px-20 py-10 my-16  ${
+          formSubmitted ? "rounded-none" : "rounded-xl mx-auto"
+        }`}
       >
-        <div className="flex">
-          <div>
-            <label htmlFor="firstname">First name</label>
+        <h1 className="font-silkscreen text-3xl font-bold tracking-tight">
+          Login to <span className="text-salmon">Pixel Legion</span>
+        </h1>
+        <p>Let's build magnificent Pixel Art together!</p>
+        {!formSubmitted ? (
+          <form
+            name="myForm"
+            id="form-login"
+            className="text-md font-display"
+            onSubmit={(e) => handleSubmit(e)}
+            ref={formRef}
+          >
+            <div className="my-4">
+              <label
+                htmlFor="username"
+                className={requirementControllerSet[0] ? "" : "text-salmon"}
+              >
+                *Username:
+              </label>
+              <input
+                name="username"
+                autoComplete="username"
+                type="text"
+                value={username}
+                placeholder="Enter your Username"
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+                minLength={3}
+                maxLength={20}
+                // required
+              />
+            </div>
+            <div className="my-4">
+              <label
+                htmlFor="password"
+                className={requirementControllerSet[1] ? "" : "text-salmon"}
+              >
+                *Password:
+              </label>
+              <input
+                name="password"
+                type="password"
+                value={password}
+                autoComplete="new-password"
+                placeholder="Enter your Password"
+                onInput={(e) => {
+                  setPassword(e.target.value);
+                }}
+                // required
+              />
+            </div>
             <input
-              name="firstname"
-              type="text"
-              placeholder="Enter your First name"
-              data-type="name"
-              onChange={() => lazyImplement("validateSingle(this)")}
+              type="submit"
+              value="Login"
+              className="text-lg text-mauve border border-solid px-9 py-0.5 mr-5 mt-5 border-mauve bg-none rounded-md duration-150 hover:bg-mauve hover:text-black active:bg-white active:text-black"
             />
-          </div>
-          <div>
-            <label htmlFor="lastname">Last name</label>
-            <input
-              name="lastname"
-              type="text"
-              placeholder="Enter your Last name"
-              data-type="name"
-              onInput={() => lazyImplement("validateSingle(this)")}
-            />
-          </div>
-        </div>
-        <div className="flex">
-          <div>
-            <label htmlFor="username">Username</label>
-            <input
-              name="username"
-              type="text"
-              placeholder="Enter your Username"
-              data-type="username"
-              onInput={() => lazyImplement("validateSingle(this)")}
-            />
-          </div>
-          <div>
-            <label htmlFor="gender">Gender</label>
-            <select
-              name="gender"
-              data-type="gender"
-              onInput={() => lazyImplement("validateSingle(this)")}
+            <button
+              type="button"
+              onClick={() => resetValues()}
+              className="text-lg text-mauve border border-solid px-9 py-0.5 mr-5 border-mauve bg-none rounded-md duration-150 hover:bg-mauve hover:text-black active:bg-white active:text-black"
             >
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="NB">Non-Binary</option>
-            </select>
-          </div>
+              Clear
+            </button>
+            <p className="text-red-500 mt-2">
+              {showError
+                ? "*Please check the form first for errors & missing values before submitting.."
+                : ""}
+            </p>
+          </form>
+        ) : (
           <div>
-            <label htmlFor="date">Birthdate</label>
-            <input
-              name="date"
-              type="date"
-              placeholder="dd/mm/yyyy"
-              data-type="date"
-              onInput={() => lazyImplement("validateSingle(this)")}
-            />
+            <p className="text-xl my-4">
+              Hello <span className="text-mauve">{username}</span>,
+              unfortunately if you're seeing this, this means that the webpage
+              is still under construction.
+            </p>
+            <br />
+            <h1 className="text-5xl text-center">¯\_(ツ)_/¯</h1>
+            <p className="text-xl my-4 text-center">
+              Remember that Pixel Legion is not a real company so this website
+              is not affiliated with anyone. It is just an assignment made by a
+              student. You can check me out{" "}
+              <Link
+                className="text-sky-400 underline underline-offset-2 hover:text-sky-200 active:text-sky-800"
+                to="https://aldwinny.github.io/"
+                target="_blank"
+              >
+                here
+              </Link>
+            </p>
           </div>
-        </div>
-        <div>
-          <label htmlFor="email">Email Address</label>
-          <input
-            name="email"
-            type="email"
-            placeholder="Enter your Email Address"
-            data-type="email"
-            onInput={() => lazyImplement("validateSingle(this)")}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            name="password"
-            type="password"
-            placeholder="Enter your Password"
-            data-type="password"
-            onInput={() => lazyImplement("Validation")}
-          />
-        </div>
-        <div>
-          <label htmlFor="confirm">Confirm your password</label>
-          <input
-            name="confirm"
-            type="password"
-            placeholder="Re-type your password"
-            data-type="confirm"
-            onInput={() => lazyImplement("Validation")}
-          />
-        </div>
-        <div>
-          <label htmlFor="reason">Reason htmlFor joining</label>
-          <br />
-          <textarea
-            maxLength="9999"
-            placeholder="Why you want to join Pixel Legion?"
-            name="reason"
-            data-type="content"
-            onInput={() => lazyImplement("validateSingle(this)")}
-          ></textarea>
-        </div>
-        <div>
-          <input
-            type="checkbox"
-            name="terms"
-            data-type="forced"
-            value="tc"
-            onInput={() => lazyImplement("validateSingle(this)")}
-          />
-          <label htmlFor="terms">I agree with the terms and conditions</label>
-          <br />
-        </div>
-        <div className="text-mauve">
-          <p>Requirements:</p>
-          <p>*Names must not contain any numbers/special chars</p>
-          <p>*Username must not contain any special chars</p>
-          <p>*You must be 13 yrs old and above to register</p>
-          <p>*Email Address must be valid</p>
-          <p>*Password must contain:</p>
-          <p>- 1 Capital letter & 1 Small letter</p>
-          <p>- 1 Number, and 1 Special Character</p>
-        </div>
-        <input
-          type="submit"
-          value="Register"
-          onChange={() => lazyImplement("validate")}
-          className="text-lg text-mauve border border-solid border-mauve bg-none rounded-md duration-150"
-        />
-        <button
-          type="button"
-          onClick={() => lazyImplement("resetForm()")}
-          className="text-mauve border border-solid border-mauve bg-none rounded-md duration-150"
-        >
-          Clear
-        </button>
-        <p id="error"></p>
-      </form>
-    </>
+        )}
+      </div>
+    </div>
   );
 };

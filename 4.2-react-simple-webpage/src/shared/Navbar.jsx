@@ -5,11 +5,11 @@ const Navbar = () => {
   let location = useLocation();
 
   return (
-    <header>
-      <nav className="">
+    <header id="top">
+      <nav>
         <ul className="flex flex-row p-4">
           <li className="logo mr-auto ml-2">
-            <Link to="/">Pixel Legion</Link>
+            <Link to="/">Pixel Legion。</Link>
           </li>
           <li>
             {location.pathname === "/about" || (

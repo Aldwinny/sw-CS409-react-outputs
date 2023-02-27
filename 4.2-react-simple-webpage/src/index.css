@@ -4,11 +4,19 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
+  @apply bg-center bg-no-repeat bg-cover;
+  background-attachment: fixed;
+  overflow-x: hidden;
 }
 
 nav {
   @apply bg-blackTransparent;
+  box-shadow: 0 0 50px 20px black;
 }
 
 nav li {
@@ -16,9 +24,176 @@ nav li {
 }
 
 nav li:not(.logo) {
-  @apply hover:text-salmon-normal hover:-translate-y-0.5 active:text-salmon-dark;
+  @apply hover:text-salmon hover:-translate-y-0.5 active:text-salmon-dark;
 }
 
 .logo {
-  @apply text-2xl tracking-tighter text-salmon-normal font-silkscreen active:bg-salmon-normal;
+  @apply text-2xl tracking-tighter text-salmon font-silkscreen active:bg-salmon active:text-black;
+}
+
+.header-text {
+  @apply phone:text-3xl text-2xl font-silkscreen text-salmon;
+}
+
+.header-height {
+  height: 68vh;
+}
+
+.price-card-holder > div {
+  cursor: pointer;
+}
+
+.price-card-holder > div:first-child {
+  @apply border-2 border-solid border-mauve;
+}
+
+.price-card-holder > div:nth-child(2) {
+  @apply border-2 border-solid border-salmon-dark;
+}
+
+.price-card-holder > div:last-child {
+  @apply border-2 border-solid border-salmon-dark;
+  border-image: linear-gradient(
+    to bottom right,
+    #b827fc 0%,
+    #2c90fc 25%,
+    #b8fd33 50%,
+    #fec837 75%,
+    #fd1892 100%
+  );
+  border-image-slice: 1;
+}
+
+.price-card-holder > div:hover {
+  @apply border-4;
+}
+
+.shadow-glitch {
+  animation: glitch 2s linear 1s infinite;
+  animation-delay: 1s;
+}
+
+.shadow-normal::before {
+  content: "";
+  display: block;
+  box-shadow: -25px 0 200px 150px black;
+}
+
+.shadow-top {
+  animation: shadow-top 1s ease forwards;
+}
+
+.shadow-down {
+  animation: shadow-down 1s ease forwards;
+}
+
+.rel-center {
+  position: relative;
+  opacity: 0;
+  z-index: 1;
+  left: 49vw;
+  cursor: pointer;
+}
+
+.rel-center-animation {
+  animation: rel-center-animation 500ms ease forwards;
+}
+
+.link-list a {
+  @apply hover:text-sky-200 active:text-sky-800;
+}
+
+.gallery div {
+  @apply mt-10 mx-5 h-64 w-96 text-mauve;
+  height: fit-content;
+}
+
+.gallery h1 {
+  @apply text-center text-2xl my-3;
+}
+
+.gallery p {
+  @apply text-center text-gray-200;
+}
+
+.filter-white {
+  filter: invert();
+}
+
+.form-group {
+  @apply flex flex-wrap;
+}
+
+#form div {
+  @apply my-2;
+}
+
+#form label,
+#form-login label {
+  @apply mx-2 mr-4;
+}
+
+#form input:not([type="checkbox"], [type="submit"]),
+#form-login input:not([type="checkbox"], [type="submit"]),
+#form select,
+#form textarea {
+  @apply border border-solid border-gray-300 text-base text-black rounded-lg px-2;
+}
+
+#form input:not([type="checkbox"], [type="submit"]),
+#form-login input:not([type="checkbox"], [type="submit"]),
+#form select {
+  @apply w-40 h-8;
+}
+
+@keyframes rel-center-animation {
+  100% {
+    opacity: 1;
+    transform: translateY(-3.5rem);
+  }
+}
+
+@keyframes shadow-top {
+  100% {
+    box-shadow: 0 -5px 150px 60px black;
+  }
+}
+
+@keyframes shadow-down {
+  0% {
+    box-shadow: 0 -5px 150px 60px black;
+  }
+  100% {
+    box-shadow: none;
+  }
+}
+
+@keyframes glitch {
+  0% {
+    text-shadow: 10px 10px 0 red;
+  }
+
+  2% {
+    text-shadow: 10px 10px 0 rgb(124, 48, 155);
+    transform: translateX(4px);
+  }
+
+  3% {
+    transform: translate(0);
+    text-shadow: none;
+  }
+
+  97% {
+    transform: translate(0);
+    text-shadow: none;
+  }
+
+  98% {
+    text-shadow: -10px -10px 0 green;
+    transform: translateY(4px);
+  }
+
+  100% {
+    text-shadow: -10px -10px 0 blue;
+  }
 }
