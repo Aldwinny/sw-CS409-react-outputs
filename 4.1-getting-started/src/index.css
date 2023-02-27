@@ -1,0 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope&display=swap");
+
+body {
+  --primary-color: #a967ff;
+  --primary-text: #fff;
+
+  --primary-font: "Manrope", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+  font-family: var(--primary-font);
+
+  margin: 0;
+}
+
+nav ul {
+  list-style: none;
+
+  background: var(--primary-color);
+  color: var(--primary-text);
+
+  padding: 20px 30px;
+  margin: 0;
+}
+
+.splash {
+  margin: 20px;
+  text-align: center;
+}
+
+.splash img {
+  width: 200px;
+  margin-top: 15vh;
+}
+
+.circle-avatar {
+  text-align: center;
+  margin: 50px 15px;
+}
+
+.circle-avatar img {
+  border-radius: 50%;
+
+  width: 250px;
+}
